@@ -5,12 +5,16 @@ import {
   HOME_ROUTE,
   MEDITATESTEPS_ROUTE,
   FORM_ROUTE,
+  PDF_ROUTE,
+  PAGINATION_ROUTE,
 } from "./config";
 import Home from "../../pages/home";
 import StickersPage from "../../pages/stickers";
 import CommentsPage from "../../pages/comments";
 import MeditationStepsPage from "../../pages/meditation-steps";
 import Form from "../../components/Form";
+import PdfPage from "../../pages/pdf";
+import DynamicPagination from "../../components/DynamicPagination";
 
 const MainRouter = ({ isAuth = false }) => {
   const basePath: RouteObject[] = [{ path: HOME_ROUTE, element: <Home /> }];
@@ -20,6 +24,8 @@ const MainRouter = ({ isAuth = false }) => {
     { path: COMMENTS_ROUTE, element: <CommentsPage /> },
     { path: MEDITATESTEPS_ROUTE, element: <MeditationStepsPage /> },
     { path: FORM_ROUTE, element: <Form /> },
+    { path: PDF_ROUTE, element: <PdfPage /> },
+    { path: PAGINATION_ROUTE, element: <DynamicPagination /> },
   ];
 
   const resultPaths: RouteObject[] = basePath;

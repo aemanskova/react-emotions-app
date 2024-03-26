@@ -6,6 +6,8 @@ import {
   HOME_ROUTE,
   MEDITATESTEPS_ROUTE,
   FORM_ROUTE,
+  PDF_ROUTE,
+  PAGINATION_ROUTE,
 } from "../../app/routing/config";
 import { Button, Menu } from "antd";
 import styled from "styled-components";
@@ -102,9 +104,14 @@ const Navbar: React.FC<NavbarProps> = ({ setIsAuth, isAuth }) => {
         <MenuItem key="5">
           <MenuLink to={FORM_ROUTE}>Form</MenuLink>
         </MenuItem>
+        <MenuItem key="6">
+          <MenuLink to={PDF_ROUTE}>PDF</MenuLink>
+        </MenuItem>
+        <MenuItem key="7">
+          <MenuLink to={PAGINATION_ROUTE}>Dynamic Pagination</MenuLink>
+        </MenuItem>
       </NavbarWrapper>
       <NavbarWrapper>
-
         <MyButton onClick={handleAuthToggle}>
           {isAuth ? "Logout" : "Login"}
         </MyButton>

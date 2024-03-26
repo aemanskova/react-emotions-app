@@ -6,6 +6,7 @@ import styled from "styled-components";
 import MyButton from "../MyButton";
 // import { SubmitHandler, useForm } from "react-hook-form";
 import Form from "../Form";
+import { useQuery } from "react-query";
 
 export const ButtonStyle = styled(Button)`
   &.ant-btn-default {
@@ -39,7 +40,6 @@ export const Buttons = styled.div`
 const Stickers = () => {
   const limit = 5;
   const [page, setPage] = useState<number>(1);
-  const [dataSource, setDataSource] = useState<DataType[]>();
 
   interface DataType {
     title: string;
@@ -62,6 +62,12 @@ const Stickers = () => {
     },
   ];
 
+  const { data, isLoading, isError } = useQuery(
+    ["stickers", page],
+    () => getStickers(page, limit),
+    { keepPreviousData: true }
+  );
+
   const getStickers = async (page: number, limit: number) => {
     const apiKey = "gRsIU8cXoEQLPymOgO4ayfzGAKvCtS2Y";
     let offset = (page - 1) * limit;
@@ -75,16 +81,29 @@ const Stickers = () => {
       title: sticker.title,
       url: sticker.images.fixed_height.url,
     }));
-    setDataSource(formattedData);
+    return formattedData;
   };
 
-  useEffect(() => {
-    getStickers(page, limit);
-  }, [page, limit]);
+  if (!data) {
+    return null;
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <h3>Loading...</h3>
+      </>
+    );
+  }
 
   return (
     <>
-      <Table columns={columns} dataSource={dataSource} pagination={false} />
+      <Table
+        loading={isLoading}
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+      />
       <Buttons>
         <MyButton
           onClick={() => setPage((prev) => prev - 1)}
